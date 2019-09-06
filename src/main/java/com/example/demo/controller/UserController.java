@@ -15,7 +15,7 @@ public class UserController {
 
     @Autowired
     public PersonService person_service;
-    public Person p;
+    public Person person;
 
     @RequestMapping(name = "/add",method = RequestMethod.PUT)
     public Person add(@RequestParam String first_name,String second_name,String email,Long age) {
@@ -32,26 +32,26 @@ public class UserController {
 
     @RequestMapping(name = "/delete",method = RequestMethod.DELETE)
     public Person delete(@RequestParam Long id){
-        p = person_service.findById(id).get();
+        Optional<Person> p = person_service.findById(id);
         person_service.deleteById(id);
-    return p;
+    return p.isPresent()?p.get():null;
     }
 
     @RequestMapping(name = "/update",method = RequestMethod.POST)
     public Person update(@RequestParam Long id,String first_name,String second_name,String email,Long age){
-        p = person_service.findById(id).get();
-        p.setSecond_name(second_name);
-        p.setFirst_name(first_name);
-        p.setEmail(email);
-        p.setAge(age);
+        person = person_service.findById(id).get();
+        person.setSecond_name(second_name);
+        person.setFirst_name(first_name);
+        person.setEmail(email);
+        person.setAge(age);
 
-        person_service.save(p);
-        return p;
+        person_service.save(person);
+        return person;
     }
     @RequestMapping(name="/get",method = RequestMethod.GET)
     public Person get(@RequestParam Long id){
         Optional<Person> p = person_service.findById(id);
-        return p.get();
+        return p.isPresent()?p.get():null;
     }
 
 }
