@@ -1,23 +1,32 @@
 package com.example.demo.controller;
 
 import com.example.demo.db.PersonService;
-import com.example.demo.service.TestService;
+import com.example.demo.service.FIleLoggerService;
+import org.apache.catalina.connector.Request;
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.model.Person;
 
+
 import java.util.Optional;
 
-@RestController("/person")
+@RestController
+@RequestMapping(value = {"/person"})
 public class UserController {
-
     @Autowired
     public PersonService person_service;
     public Person person;
+    public volatile FIleLoggerService log;
 
-    @RequestMapping(name = "/add",method = RequestMethod.PUT)
+    public UserController(){
+        log = FIleLoggerService.getInstance();
+    }
+
+    @RequestMapping(name = "/add",method = RequestMethod.POST)
+    @ResponseStatus(code = HttpStatus.CREATED)
     public Person add(@RequestParam String first_name,String second_name,String email,Long age) {
 
         Person p = new Person();
@@ -27,6 +36,8 @@ public class UserController {
         p.setAge(age);
 
         person_service.save(p);
+
+        log.Log("add:\r\n"+p);
         return p;
     }
 
@@ -34,19 +45,20 @@ public class UserController {
     public Person delete(@RequestParam Long id){
         Optional<Person> p = person_service.findById(id);
         person_service.deleteById(id);
+        log.Log("delete:\r\n"+p);
     return p.isPresent()?p.get():null;
     }
 
-    @RequestMapping(name = "/update",method = RequestMethod.POST)
-    public Person update(@RequestParam Long id,String first_name,String second_name,String email,Long age){
-        person = person_service.findById(id).get();
-        person.setSecond_name(second_name);
-        person.setFirst_name(first_name);
-        person.setEmail(email);
-        person.setAge(age);
-
-        person_service.save(person);
-        return person;
+    @RequestMapping(name = "/update",method = RequestMethod.PUT)
+    public ResponseEntity<Person> update(@RequestParam Long id,String first_name,String second_name,String email,Long age){
+        return person_service.findById(id).map((_p)->{
+            _p.setFirst_name(first_name);
+            _p.setSecond_name(second_name);
+            _p.setEmail(email);
+            _p.setAge(age);
+            person_service.save(_p);
+            return new ResponseEntity<>(_p,HttpStatus.OK);
+        }).orElseThrow();
     }
     @RequestMapping(name="/get",method = RequestMethod.GET)
     public Person get(@RequestParam Long id){
