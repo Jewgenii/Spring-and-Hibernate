@@ -5,10 +5,7 @@ import com.example.demo.model.User;
 import com.example.demo.service.FileFolderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
@@ -16,20 +13,20 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.locks.Lock;
 
 @RestController
-@RequestMapping(value = {"/filesystem"})
+@RequestMapping("/filesystem")
 public class FileSystemController {
     static volatile WeakHashMap<String,String> locks = new WeakHashMap<>();
 
     @Autowired
     public volatile FileFolderService flService;
 
-    @RequestMapping(name = "getfolder",method = RequestMethod.GET)
+    @GetMapping("getfolder")
     public Folder get(){
 
            return flService.get("jack","initialFolder");
     }
 
-    @RequestMapping(name="createfolder",method = RequestMethod.POST)
+    @PostMapping("createfolder")
     public void create(@RequestParam String uid,String resource){
         try{
 ;

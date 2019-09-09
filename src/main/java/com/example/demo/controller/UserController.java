@@ -14,7 +14,7 @@ import com.example.demo.model.Person;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = {"/person"})
+@RequestMapping("/person")
 public class UserController {
     @Autowired
     public PersonService person_service;
@@ -25,7 +25,7 @@ public class UserController {
         log = FIleLoggerService.getInstance();
     }
 
-    @RequestMapping(name = "/add",method = RequestMethod.POST)
+    @PostMapping("/add")
     @ResponseStatus(code = HttpStatus.CREATED)
     public Person add(@RequestParam String first_name,String second_name,String email,Long age) {
 
@@ -41,7 +41,7 @@ public class UserController {
         return p;
     }
 
-    @RequestMapping(name = "/delete",method = RequestMethod.DELETE)
+    @DeleteMapping
     public Person delete(@RequestParam Long id){
         Optional<Person> p = person_service.findById(id);
         person_service.deleteById(id);
