@@ -18,9 +18,18 @@ public class Person {
     @Column
     Long age;
 
+    public Person() { }
+
+    public Person(String first_name, String second_name, String email, Long age) {
+        this.first_name = first_name;
+        this.second_name = second_name;
+        this.email = email;
+        this.age = age;
+    }
+
     public void setId(Long id) {
         this.id = id;
-    }git
+    }
 
     @Override
     public String toString() {

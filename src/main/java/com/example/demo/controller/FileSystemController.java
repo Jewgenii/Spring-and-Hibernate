@@ -39,20 +39,15 @@ public class FileSystemController {
                 Thread.sleep(5000);
                 flService.create(uid,resource);
                 System.out.println("leave lock::"+Thread.currentThread().getId()+", uid::"+uid);
+                locks.remove(uid);
             }
 
         }catch(Exception ex){
             System.out.println(ex);
         }
 
-
-        System.out.println("in lock::"+Thread.currentThread().getId()+", uid::"+uid);
-      //  Thread.sleep(5000);
-        flService.create(uid,resource);
-        System.out.println("leave lock::"+Thread.currentThread().getId()+", uid::"+uid);
-
     }
-    static Object getSyncObjectForId(String _uid) {
+    static Object getSyncObjectForId(final String _uid) {
         synchronized (locks) {
             String lock = locks.get(_uid);
             if (lock == null) {

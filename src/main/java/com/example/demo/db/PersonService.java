@@ -2,11 +2,6 @@ package com.example.demo.db;
 
 import com.example.demo.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,6 +26,12 @@ public class PersonService {
         person.deleteById(id);
         return p.isPresent()?p:null;
 
+    }
+    public int getalltablescount(){
+        return  person.getalltablescount();
+    }
+    public List<String> getalltables(){
+         return person.getalltables();
     }
 
 }

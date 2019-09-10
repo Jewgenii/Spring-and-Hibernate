@@ -5,4 +5,9 @@ import java.util.ArrayList;
 
 public class Folder {
     public ArrayList<String> fileName;
+    final int t;
+
+    {
+        t = 1;
+    }
 }
