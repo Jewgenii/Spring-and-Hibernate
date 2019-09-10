@@ -33,5 +33,8 @@ public class PersonService {
     public List<String> getalltables(){
          return person.getalltables();
     }
+    public List<String> getalltableinfoscheme(String name){
+        return person.getalltableinfoscheme(name);
+    }
 
 }

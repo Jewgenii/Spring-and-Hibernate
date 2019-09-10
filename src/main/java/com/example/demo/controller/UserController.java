@@ -4,6 +4,7 @@ import com.example.demo.db.PersonService;
 import com.example.demo.service.FIleLoggerService;
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.connector.Response;
+import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -102,5 +103,9 @@ public class UserController {
     @GetMapping("/getalltables")
     public List<String> getalltables(){
         return person_service.getalltables();
+    }
+    @GetMapping("/getalltablesinfoscheme")
+    List<String> getall(@RequestParam String name){
+        return person_service.getalltableinfoscheme(name);
     }
 }
