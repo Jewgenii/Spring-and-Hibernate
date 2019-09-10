@@ -20,6 +20,11 @@ public class Person {
 
     public void setId(Long id) {
         this.id = id;
+    }git
+
+    @Override
+    public String toString() {
+        return String.format("name:%s,surname:%s,age:%d,email:%s",first_name,second_name,age,email);
     }
 
     public void setFirst_name(String first_name) {
