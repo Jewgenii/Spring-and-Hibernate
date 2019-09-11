@@ -28,7 +28,7 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    @ResponseStatus(code = HttpStatus.OK)
+    @ResponseStatus(code = HttpStatus.CREATED)
     public Person add(@RequestParam String first_name,String second_name,String email,Long age) {
 
         Person p = new Person(first_name,second_name,email,age);
@@ -46,6 +46,7 @@ public class UserController {
     }
 
     @DeleteMapping
+    @ResponseStatus(code=HttpStatus.OK)
     public Person delete(@RequestParam Long id){
         Optional<Person> p = person_service.findById(id);
         try{
@@ -59,14 +60,17 @@ public class UserController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Person> update(@RequestParam Long id,String first_name,String second_name,String email,Long age){
+    @ResponseStatus(code=HttpStatus.OK)
+    public ResponseEntity<Person> update(@ModelAttribute Person per){
+
         ResponseEntity<Person> p = null;
+        //@RequestParam Long id,String first_name,String second_name,String email,Long age
         try{
-            p = person_service.findById(id).map((_p)->{
-                _p.setFirst_name(first_name);
-                _p.setSecond_name(second_name);
-                _p.setEmail(email);
-                _p.setAge(age);
+            p = person_service.findById(per.getId()).map((_p)->{
+                _p.setFirst_name(per.getFirst_name());
+                _p.setSecond_name(per.getSecond_name());
+                _p.setEmail(per.getEmail());
+                _p.setAge(per.getAge());
                 person_service.save(_p);
                 return new ResponseEntity<>(_p,HttpStatus.OK);
             }).orElseThrow();
@@ -79,7 +83,8 @@ public class UserController {
         return p;
     }
     @GetMapping("/get")
-    public ResponseEntity<Person> get(@RequestParam Long id){
+    @ResponseStatus(code=HttpStatus.OK)
+    public ResponseEntity<Person> get(@RequestParam Long id) throws Exception {
         ResponseEntity<Person> p = null;
         try{
          p = person_service.findById(id).map((_p)->{ return new ResponseEntity<Person>(_p,HttpStatus.OK);}).orElseThrow();
@@ -87,6 +92,10 @@ public class UserController {
             System.out.println(ex);
             p = ResponseEntity.badRequest().body(null);
         }
+
+       if(true)
+           throw new Exception("shit happens");
+
        return p;
     }
 
@@ -107,5 +116,10 @@ public class UserController {
     @PostMapping("insertuser")
     public void insertuser(@RequestParam String first_name,String second_name,String email, Long age){
         person_service.insertPerson(first_name,second_name,email,age);
+    }
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    public String exception(Exception ex){
+        return ex.toString();
     }
 }

@@ -1,12 +1,15 @@
 package com.example.demo;
+import com.example.demo.model.LogFormater;
 import com.example.demo.model.Person;
 import com.example.demo.model.User;
+import com.example.demo.service.MyConfig;
 import org.apache.catalina.core.ApplicationContext;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.objenesis.instantiator.ObjectInstantiator;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.io.*;
 import java.util.Properties;
@@ -38,5 +41,11 @@ public class DemoApplication {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }*/
+        AnnotationConfigApplicationContext con = new AnnotationConfigApplicationContext(MyConfig.class);
+//        con.refresh();
+        LogFormater l = con.getBean(LogFormater.class);
+        System.out.println(l);
+
+
     }
 }
