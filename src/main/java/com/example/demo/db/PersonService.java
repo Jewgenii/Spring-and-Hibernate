@@ -25,7 +25,6 @@ public class PersonService {
         Optional<Person> p = person.findById(id);
         person.deleteById(id);
         return p.isPresent()?p:null;
-
     }
     public int getalltablescount(){
         return  person.getalltablescount();
@@ -35,6 +34,12 @@ public class PersonService {
     }
     public List<String> getalltableinfoscheme(String name){
         return person.getalltableinfoscheme(name);
+    }
+    public void insertPerson(String first_name,
+                             String second_name,
+                             String email,
+                             Long age){
+        person.insertPerson(first_name,second_name,email,age);
     }
 
 }

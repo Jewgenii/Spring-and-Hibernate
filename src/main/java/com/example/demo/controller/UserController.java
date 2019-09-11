@@ -2,24 +2,17 @@ package com.example.demo.controller;
 
 import com.example.demo.db.PersonService;
 import com.example.demo.service.FIleLoggerService;
-import org.apache.catalina.connector.Request;
-import org.apache.catalina.connector.Response;
-import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.model.Person;
-import org.springframework.web.context.request.RequestContextHolder;
 
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ExecutionException;
-
-import static org.springframework.http.ResponseEntity.badRequest;
 
 @RestController
 @RequestMapping("/person")
@@ -41,12 +34,12 @@ public class UserController {
         Person p = new Person(first_name,second_name,email,age);
         try{
             person_service.save(p);
-            log.Log("add:\r\n"+p+ "::"+request.getRemoteAddr());
+            log.log("add:\r\n"+p+ "::"+request.getRemoteAddr());
         }
         catch(DataIntegrityViolationException ex){
             System.out.println(ex.toString());
 
-            log.Log("(error)add:\r\n"+p + "::"+request.getRemoteHost());
+            log.log("(error)add:\r\n"+p + "::"+request.getRemoteHost());
         }
 
         return p;
@@ -57,7 +50,7 @@ public class UserController {
         Optional<Person> p = person_service.findById(id);
         try{
             person_service.deleteById(id);
-            log.Log("delete:\r\n"+p);
+            log.log("delete:\r\n"+p);
         }catch(Exception ex){
             System.out.println(ex.toString());
         }
@@ -96,16 +89,23 @@ public class UserController {
         }
        return p;
     }
+
     @GetMapping("/tablecount")
     public int gettablecount(){
         return person_service.getalltablescount();
     }
+
     @GetMapping("/getalltables")
     public List<String> getalltables(){
         return person_service.getalltables();
     }
+
     @GetMapping("/getalltablesinfoscheme")
-    List<String> getall(@RequestParam String name){
-        return person_service.getalltableinfoscheme(name);
+    List<String> getalltablesinfoscheme(@RequestParam String namelike){
+        return person_service.getalltableinfoscheme(namelike);
+    }
+    @PostMapping("insertuser")
+    public void insertuser(@RequestParam String first_name,String second_name,String email, Long age){
+        person_service.insertPerson(first_name,second_name,email,age);
     }
 }

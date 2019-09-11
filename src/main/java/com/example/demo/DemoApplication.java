@@ -1,4 +1,6 @@
 package com.example.demo;
+import com.example.demo.model.Person;
+import com.example.demo.model.User;
 import org.apache.catalina.core.ApplicationContext;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -36,7 +38,5 @@ public class DemoApplication {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }*/
-
-
     }
 }

@@ -1,19 +1,18 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Folder;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class FileFolderService {
 
     private static final String root = "./usrFldr";
 
-    public Folder folder = null;
     public File userRootFolder;
 
     public FileFolderService() {
@@ -22,34 +21,48 @@ public class FileFolderService {
     }
 
     //resource: file or folder
-    public Folder get(String uid, String resource) {
+    public List<String> getRootList(String uid) {
+        userRootFolder = this.createUserRootFolder(uid);
+        return Arrays.asList(userRootFolder.list());
+    }
+    public List<String> get(String uid,String resource){
+        String rootPath = this.createUserRootFolder(uid).getPath();
+        String resourcePath = rootPath.concat("/").concat(resource);
+        File fl = new File(resourcePath);
 
-        try {
-            // test log out for concurrency
-            System.out.print("try access:" + uid + " " + ZonedDateTime.now().toString() + "\r\n");
-
-            userRootFolder = this.createUserRootFolder(uid);
-            folder.fileName = (ArrayList<String>) Arrays.asList(userRootFolder.list((dir, name) -> name == resource));
-
-            Thread.sleep(3000);
-        } catch (InterruptedException ex) {
-
+        if(fl.exists()){
+            return Arrays.asList(fl.list());
         }
 
-        return folder;
+    return  null;
     }
 
-    public void create(String uid, String resource) {
+    public Boolean create(String uid, String resource) throws IOException {
 
+        resource = resource.trim();
+        if(resource.length()>0){
+            String rootFolderPath = createUserRootFolder(uid).getCanonicalPath();
+            File fl = new File(String.format("%s/%s", rootFolderPath, resource));
+
+            if (!fl.exists()){ // stupid check if a file or folder
+                if(resource.contains(".")) {
+                    Files.createFile(fl.toPath());
+                    return true;
+                }
+                else
+                    return  fl.mkdir();
+            }
+        }
+        return false;
+    }
+
+    public boolean delete(String uid,String resource){
         String rootFolderPath = createUserRootFolder(uid).getPath();
-
         File fl = new File(String.format("%s/%s", rootFolderPath, resource));
-
-        if (resource != "" && !fl.exists()) fl.mkdir();
-    }
-
-    public void delete(String uid, String resource) {
-
+        if(fl.exists()){
+            return fl.delete();
+        }
+        return false;
     }
 
     public File createUserRootFolder(String uid) {
