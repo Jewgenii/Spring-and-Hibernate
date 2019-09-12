@@ -1,9 +1,11 @@
 package com.example.demo;
 import com.example.demo.model.LogFormater;
 import com.example.demo.model.Person;
+import com.example.demo.model.TestIoc;
 import com.example.demo.model.User;
 import com.example.demo.service.MyConfig;
 import org.apache.catalina.core.ApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -23,16 +25,18 @@ public class DemoApplication {
 
         SpringApplication.run(DemoApplication.class, args);
 
-        /*
         //testing serialization and deserialization
-        if (args.length>0)
+     /*   if (args.length>0)
             System.out.print(args[0]);
         try {
-            ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream("./tetsObj.txt"));
+            ByteArrayOutputStream bout = new ByteArrayOutputStream();
+            ObjectOutputStream stream = new ObjectOutputStream(bout);
             com.example.demo.model.User u = new com.example.demo.model.User("user");
             stream.writeObject(u);
             stream.close();
-            ObjectInputStream inStream = new ObjectInputStream(new FileInputStream("./tetsObj.txt"));
+
+            byte[] arr =  bout.toByteArray();
+            ObjectInputStream inStream = new ObjectInputStream(new ByteArrayInputStream(arr));
             u =  (com.example.demo.model.User) inStream.readObject();
 
             inStream.close();
@@ -41,11 +45,12 @@ public class DemoApplication {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }*/
-        AnnotationConfigApplicationContext con = new AnnotationConfigApplicationContext(MyConfig.class);
-//        con.refresh();
-        LogFormater l = con.getBean(LogFormater.class);
-        System.out.println(l);
 
+/*
+        AnnotationConfigApplicationContext con = new AnnotationConfigApplicationContext(MyConfig.class);
+        con.register(LogFormater.class);
+        LogFormater l = con.getBean(LogFormater.class);
+        System.out.println(l.getItemToLog());*/
 
     }
 }

@@ -1,5 +1,8 @@
 package com.example.demo.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
+
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
@@ -15,6 +18,7 @@ public class LogFormater {
         return dateTime;
     }
 
+    @Required
     public void setItemToLog(String itemToLog) {
         this.itemToLog = itemToLog;
     }
@@ -22,6 +26,8 @@ public class LogFormater {
     public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
     }
+    @Autowired
+    public LogFormater(){}
 
     public LogFormater(String itemToLog) {
         this.itemToLog = itemToLog;

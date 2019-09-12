@@ -2,9 +2,15 @@ package com.example.demo.controller;
 
 import com.example.demo.service.FIleLoggerService;
 import com.example.demo.service.FileFolderService;
+import com.example.demo.service.MyConfig;
+import org.apache.catalina.core.ApplicationContext;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.util.List;
 import java.util.WeakHashMap;
 
@@ -12,11 +18,17 @@ import java.util.WeakHashMap;
 @RequestMapping("/filesystem")
 public class FileSystemController {
     static volatile WeakHashMap<String,String> locks = new WeakHashMap<>();
-    @Autowired
+
     FIleLoggerService loger;
 
     @Autowired
     public volatile FileFolderService flService;
+
+    public FileSystemController() {
+        GenericApplicationContext c  = new AnnotationConfigApplicationContext(MyConfig.class);
+        this.loger = c.getBean(FIleLoggerService.class);
+
+    }
 
     @GetMapping("getfolder")
     public List<String> get(String uid, String resource){
