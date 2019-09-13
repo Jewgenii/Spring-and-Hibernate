@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.db.PersonService;
+import com.example.demo.repositories.PersonService;
 import com.example.demo.service.FIleLoggerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;

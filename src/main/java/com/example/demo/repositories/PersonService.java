@@ -1,10 +1,9 @@
-package com.example.demo.db;
+package com.example.demo.repositories;
 
 import com.example.demo.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

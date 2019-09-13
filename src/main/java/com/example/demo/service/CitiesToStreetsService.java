@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.db.CitiesToStreetsRepository;
-import com.example.demo.db.CityRepository;
-import com.example.demo.db.StreetsRepository;
+import com.example.demo.repositories.CitiesToStreetsRepository;
+import com.example.demo.repositories.CityRepository;
+import com.example.demo.repositories.StreetsRepository;
 import com.example.demo.model.CitiesToStreets;
 import com.example.demo.model.City;
 import com.example.demo.model.Street;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 @Service
 public class CitiesToStreetsService {

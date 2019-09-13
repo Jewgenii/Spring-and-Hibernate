@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import org.springframework.context.annotation.Primary;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -12,14 +14,11 @@ import java.util.Set;
 @Table(name = "cities_to_streets")
 public class CitiesToStreets implements Serializable {
     private static final long serialVersionUID = 1L;
+
     @EmbeddedId
     private CitiesToStreetsID id;
-/*    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;*/
 
-    public CitiesToStreets() {
-    }
+    public CitiesToStreets() { }
 
     @Column(name="created_on")
     private Date time = new Date();
@@ -45,12 +44,11 @@ public class CitiesToStreets implements Serializable {
     public Street getStreet() {
         return street;
     }
-
-    @MapsId("cityid")
+    @MapsId("city")
     @ManyToOne(fetch = FetchType.LAZY)
     private City city;
 
-    @MapsId("streetid")
+    @MapsId("street")
     @ManyToOne(fetch = FetchType.LAZY)
     private Street street;
 

@@ -1,13 +1,16 @@
 package com.example.demo.model;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
 public class CitiesToStreetsID implements Serializable {
     private static final long serialVersionUID = 1L;
+
+/*    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;*/
 
     @Column(name = "city_id")
     private Long cityId;
