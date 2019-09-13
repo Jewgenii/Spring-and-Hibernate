@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class User implements Serializable {
     //must have this static final constant initialized for consistency ser/deser
-    public static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     @Autowired
     LogFormater f;

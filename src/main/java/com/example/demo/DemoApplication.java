@@ -8,6 +8,7 @@ import org.apache.catalina.core.ApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.flyway.FlywayProperties;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.objenesis.instantiator.ObjectInstantiator;
@@ -51,6 +52,5 @@ public class DemoApplication {
         con.register(LogFormater.class);
         LogFormater l = con.getBean(LogFormater.class);
         System.out.println(l.getItemToLog());*/
-
     }
 }
