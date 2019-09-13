@@ -18,15 +18,15 @@ import java.util.WeakHashMap;
 @RequestMapping("/filesystem")
 public class FileSystemController {
     static volatile WeakHashMap<String,String> locks = new WeakHashMap<>();
-
+    @Autowired
     FIleLoggerService loger;
 
     @Autowired
     public volatile FileFolderService flService;
 
     public FileSystemController() {
-        GenericApplicationContext c  = new AnnotationConfigApplicationContext(MyConfig.class);
-        this.loger = c.getBean(FIleLoggerService.class);
+      /*  GenericApplicationContext c  = new AnnotationConfigApplicationContext(MyConfig.class);
+        this.loger = c.getBean(FIleLoggerService.class);*/
 
     }
 

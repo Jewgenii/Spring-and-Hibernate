@@ -2,7 +2,9 @@ package com.example.demo.model;
 
 import org.springframework.context.annotation.Primary;
 
+import javax.annotation.Generated;
 import javax.persistence.*;
+import javax.validation.Constraint;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -14,8 +16,15 @@ import java.util.Set;
 @Table(name = "cities_to_streets")
 public class CitiesToStreets implements Serializable {
     private static final long serialVersionUID = 1L;
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private  Long _id;
 
-    @EmbeddedId
+    public Long getId() {
+        return _id;
+    }
+    @Embedded
     private CitiesToStreetsID id;
 
     public CitiesToStreets() { }

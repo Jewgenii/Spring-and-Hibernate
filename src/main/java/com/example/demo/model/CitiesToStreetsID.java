@@ -5,12 +5,9 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
+@Table(uniqueConstraints = @UniqueConstraint(name = "uniquecitystreet", columnNames = {"city_id,street_id"}))
 public class CitiesToStreetsID implements Serializable {
     private static final long serialVersionUID = 1L;
-
-/*    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;*/
 
     @Column(name = "city_id")
     private Long cityId;
