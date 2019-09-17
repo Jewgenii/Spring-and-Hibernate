@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Person;
 import com.example.demo.repositories.PersonService;
 import com.example.demo.service.FIleLoggerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +8,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.demo.model.Person;
-
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -122,4 +121,5 @@ public class UserController {
     public String exception(Exception ex){
         return ex.toString();
     }
+
 }

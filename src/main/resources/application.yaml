@@ -1,4 +1,10 @@
 spring:
+  servlet:
+    multipart:
+      max-file-size: 1000MB
+      max-request-size: 1000MB
+      enabled: true
+      location: "./tmpfiles"
   jpa:
     hibernate:
       ddl-auto:  create

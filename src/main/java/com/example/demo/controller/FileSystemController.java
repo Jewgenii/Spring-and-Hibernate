@@ -4,20 +4,31 @@ import com.example.demo.service.FIleLoggerService;
 import com.example.demo.service.FileFolderService;
 import com.example.demo.service.MyConfig;
 import org.apache.catalina.core.ApplicationContext;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.aspectj.util.FileUtil;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.WeakHashMap;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @RestController
 @RequestMapping("/filesystem")
 public class FileSystemController {
-    static volatile WeakHashMap<String,String> locks = new WeakHashMap<>();
+    static volatile HashMap<String,String> locks = new HashMap<>();
     @Autowired
     FIleLoggerService loger;
 
@@ -65,6 +76,34 @@ public class FileSystemController {
     public Boolean delete(@RequestParam String uid,String resource){
         loger.log(resource);
         return  flService.delete(uid,resource);
+    }
+    @PostMapping("uploadfile")
+    public List<String> uploadfile(@RequestParam String uid,@RequestParam() MultipartFile[] files){
+        String root = flService.createUserRootFolder(uid).getPath();
+        List<String> fileNotWritten = new ArrayList<>();
+        for (MultipartFile mfile:files){
+            String flname = String.join(File.separator, (CharSequence) root,mfile.getOriginalFilename());
+            File fl = new File(flname);
+            if(fl.exists()){
+                fileNotWritten.add("not written"+File.pathSeparator+flname);
+            }
+
+            try {
+                fl.createNewFile();
+                FileOutputStream out =  new FileOutputStream(flname);
+                out.write(mfile.getInputStream().readAllBytes());
+                out.flush();
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return fileNotWritten;
+    }
+    public void test(){
+        ExecutorService es = Executors.newSingleThreadExecutor();
+
     }
     static Object getSyncObjectForId(final String _uid) {
         synchronized (locks) {

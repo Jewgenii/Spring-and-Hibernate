@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class FileFolderService {
 
-    private static final String root = "./usrFldr";
+    private static final String root = "."+File.separator+"usrFldr";
 
     public File userRootFolder;
 
@@ -27,7 +27,7 @@ public class FileFolderService {
     }
     public List<String> get(String uid,String resource){
         String rootPath = this.createUserRootFolder(uid).getPath();
-        String resourcePath = rootPath.concat("/").concat(resource);
+        String resourcePath = rootPath.concat(File.separator).concat(resource);
         File fl = new File(resourcePath);
 
         if(fl.exists()){
@@ -42,7 +42,7 @@ public class FileFolderService {
         resource = resource.trim();
         if(resource.length()>0){
             String rootFolderPath = createUserRootFolder(uid).getCanonicalPath();
-            File fl = new File(String.format("%s/%s", rootFolderPath, resource));
+            File fl = new File(String.format("%s"+File.separator+"%s", rootFolderPath, resource));
 
             if (!fl.exists()){ // stupid check if a file or folder
                 if(resource.contains(".")) {
@@ -58,7 +58,7 @@ public class FileFolderService {
 
     public boolean delete(String uid,String resource){
         String rootFolderPath = createUserRootFolder(uid).getPath();
-        File fl = new File(String.format("%s/%s", rootFolderPath, resource));
+        File fl = new File(String.format("%s"+File.separator+"%s", rootFolderPath, resource));
         if(fl.exists()){
             return fl.delete();
         }
@@ -66,7 +66,7 @@ public class FileFolderService {
     }
 
     public File createUserRootFolder(String uid) {
-        File fl = new File(String.format("%s/%s", root, uid));
+        File fl = new File(String.format("%s"+File.separator+"%s", root, uid));
         if (!fl.exists()) {
             fl.mkdir();
         }
@@ -78,7 +78,7 @@ public class FileFolderService {
     }
 
     public boolean fileFolderExists(String uid) {
-        return new File(String.format("%s/%s", root, uid)).exists();
+        return new File(String.format("%s"+File.separator+"%s", root, uid)).exists();
     }
 
 }
