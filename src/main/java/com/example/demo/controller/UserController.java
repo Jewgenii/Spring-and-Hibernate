@@ -1,15 +1,19 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Person;
-import com.example.demo.repositories.PersonService;
+import com.example.demo.service.CitiesToStreetsService;
 import com.example.demo.service.FIleLoggerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +21,7 @@ import java.util.Optional;
 @RequestMapping("/person")
 public class UserController {
     @Autowired
-    public PersonService person_service;
+    public CitiesToStreetsService.PersonService person_service;
     public volatile FIleLoggerService log;
     @Autowired
     private HttpServletRequest request;
@@ -112,14 +116,36 @@ public class UserController {
     List<String> getalltablesinfoscheme(@RequestParam String namelike){
         return person_service.getalltableinfoscheme(namelike);
     }
+
     @PostMapping("insertuser")
-    public void insertuser(@RequestParam String first_name,String second_name,String email, Long age){
-        person_service.insertPerson(first_name,second_name,email,age);
+    public Person insertuser(@RequestParam String first_name, String second_name, String email, Long age,
+                             @RequestParam(name = "profile_photo") MultipartFile fl){
+        Person p = null;
+
+            p = new Person(first_name,second_name,email,age);
+            p.setImage(fl);
+
+        person_service.save(p);
+        return p;
+       // return person_service.insertPerson(first_name,second_name,email,age);
     }
+
+    @PostMapping("getuserbyid")
+    public Person getUserById(Long id){
+
+        Person p = null;
+        try {
+             p = person_service.findById(id).orElseThrow();
+        }
+        catch(Exception ex){
+            System.out.println("ex = " + ex);
+        }
+        return p;
+    }
+
     @ExceptionHandler(Exception.class)
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public String exception(Exception ex){
         return ex.toString();
     }
-
 }

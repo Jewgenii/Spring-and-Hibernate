@@ -13,7 +13,7 @@ import java.util.Set;
 
 
 @Entity
-@Table(name = "cities_to_streets")
+@Table(name = "cities_to_streets",uniqueConstraints = {@UniqueConstraint(name = "unique_city_street",columnNames = {"city_id","street_id"})})
 public class CitiesToStreets implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -60,6 +60,11 @@ public class CitiesToStreets implements Serializable {
     @MapsId("street")
     @ManyToOne(fetch = FetchType.LAZY)
     private Street street;
+
+    @Column(name = "`timestamp`")
+    @Temporal(value = TemporalType.DATE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Date date;
 
     @Override
     public boolean equals(Object obj) {

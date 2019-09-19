@@ -22,4 +22,6 @@ public interface PersonRepository  extends JpaRepository<Person,Long> {
         nativeQuery = true)
     void insertPerson(@Param("first_name") String first_name,@Param("second_name") String second_name,
                       @Param("email") String email,@Param("age") Long age);
+    @Query(value="select * from person where id = (select max(id) from person)",nativeQuery = true)
+    Person getLastInsertedPerson();
 }

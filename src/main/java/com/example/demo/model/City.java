@@ -22,6 +22,7 @@ public class City implements Serializable {
     public Long getId() {
         return id;
     }
+
     @OneToMany(
             mappedBy = "city",
             cascade =  CascadeType.ALL,
