@@ -26,9 +26,9 @@ public class Job implements Serializable {
     @Column
     private String description;
 
-    @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.REMOVE})
-    @JoinColumn(name = "job_id")
-    private List<Worker> workers;
+    //@OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.REMOVE})
+    //@JoinColumn(name = "job_id")
+    //private List<Worker> workers;
 
     @CreationTimestamp
     private Time creattiontime;
@@ -76,7 +76,7 @@ public class Job implements Serializable {
 
     public Job(String description, List<Worker> workers) {
         this.description = description;
-        this.workers = workers;
+       // this.workers = workers;
     }
 
     public Long getId() {
@@ -87,7 +87,7 @@ public class Job implements Serializable {
         return description;
     }
 
-    public  List<Worker> getWorkers() {
+/*    public  List<Worker> getWorkers() {
         return workers;
     }
 
@@ -97,7 +97,7 @@ public class Job implements Serializable {
 
     public void setWorkers( List<Worker> workers) {
         this.workers = workers;
-    }
+    }*/
 
     public Job() { }
 /*

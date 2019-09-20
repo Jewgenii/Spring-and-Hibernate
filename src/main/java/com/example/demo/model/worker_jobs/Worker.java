@@ -1,6 +1,7 @@
 package com.example.demo.model.worker_jobs;
 
 import com.example.demo.generators.CurrentTimeGenerator;
+import com.example.demo.model.Embeddable.ExtraInfo;
 import com.example.demo.model.worker_jobs.Job;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -14,7 +15,16 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnJava;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-
+@AttributeOverrides(
+        {
+                @AttributeOverride(name="pros.details",column = @Column(name="pros_details")),
+                @AttributeOverride(name="cons.details",column = @Column(name="cons_details")),
+        }
+)
+@AssociationOverrides({
+        @AssociationOverride(name = "pros.job", joinColumns = @JoinColumn(name = "job_pros_job")),
+        @AssociationOverride(name = "cons.job", joinColumns = @JoinColumn(name = "job_cons_job"))
+})
 @Table(name = "worker", schema = "worker_job", uniqueConstraints = {@UniqueConstraint(name = "unique_job_worker",columnNames = {"name"})})
 @Entity
 public class Worker implements Serializable {
@@ -32,8 +42,10 @@ public class Worker implements Serializable {
     @GeneratorType(type = CurrentTimeGenerator.class, when = GenerationTime.ALWAYS)
     private Date insdate;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.REMOVE})
-    private Job job;
+    @Embedded
+    public ExtraInfo pros;
+    @Embedded
+    public ExtraInfo cons;
 
     public Long getId() {
         return id;
@@ -41,23 +53,6 @@ public class Worker implements Serializable {
 
     public String getName() {
         return name;
-    }
-
-    public Worker(String name, Job job) {
-        this.name = name;
-        this.job = job;
-    }
-
-    public Job getJob() {
-        return job;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setJob(Job job) {
-        this.job = job;
     }
 
     public Worker() {
