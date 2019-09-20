@@ -36,6 +36,7 @@ public class FileSystemController {
     public volatile FileFolderService flService;
 
     public FileSystemController() {
+
       /*  GenericApplicationContext c  = new AnnotationConfigApplicationContext(MyConfig.class);
         this.loger = c.getBean(FIleLoggerService.class);*/
 

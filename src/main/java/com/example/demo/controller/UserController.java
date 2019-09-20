@@ -3,7 +3,9 @@ package com.example.demo.controller;
 import com.example.demo.model.Person;
 import com.example.demo.service.CitiesToStreetsService;
 import com.example.demo.service.FIleLoggerService;
+import org.apache.catalina.connector.Request;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +38,7 @@ public class UserController {
 
         Person p = new Person(first_name,second_name,email,age);
         try{
+
             person_service.save(p);
             log.log("add:\r\n"+p+ "::"+request.getRemoteAddr());
         }

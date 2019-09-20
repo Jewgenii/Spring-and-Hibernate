@@ -1,15 +1,12 @@
-package com.example.demo.model;
+package com.example.demo.model.cities_streets;
 
-import org.springframework.context.annotation.Primary;
+import org.hibernate.annotations.GenerationTime;
 
-import javax.annotation.Generated;
+import javax.annotation.processing.Generated;
 import javax.persistence.*;
-import javax.validation.Constraint;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 
 @Entity
@@ -32,7 +29,7 @@ public class CitiesToStreets implements Serializable {
     @Column(name="created_on")
     private Date time = new Date();
 
-    public CitiesToStreets( City city, Street street) {
+    public CitiesToStreets(City city, Street street) {
         this.id = new CitiesToStreetsID(city.getId(),street.getId());
         this.city = city;
         this.street = street;

@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.City;
-import com.example.demo.model.Street;
+import com.example.demo.model.cities_streets.City;
+import com.example.demo.model.cities_streets.Street;
 import com.example.demo.service.CitiesToStreetsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
