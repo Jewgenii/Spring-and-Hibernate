@@ -22,8 +22,8 @@ import java.util.Date;
         }
 )
 @AssociationOverrides({
-        @AssociationOverride(name = "pros.job", joinColumns = @JoinColumn(name = "job_pros_job")),
-        @AssociationOverride(name = "cons.job", joinColumns = @JoinColumn(name = "job_cons_job"))
+        @AssociationOverride(name = "pros.job", joinColumns = @JoinColumn(name = "job_pros_job"),foreignKey = @ForeignKey(name = "pros_fk")),
+        @AssociationOverride(name = "cons.job", joinColumns = @JoinColumn(name = "job_cons_job"),foreignKey = @ForeignKey(name = "cons_fk"))
 })
 @Table(name = "worker", schema = "worker_job", uniqueConstraints = {@UniqueConstraint(name = "unique_job_worker",columnNames = {"name"})})
 @Entity

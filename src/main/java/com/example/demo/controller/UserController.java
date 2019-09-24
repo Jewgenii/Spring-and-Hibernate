@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.Person;
 import com.example.demo.service.CitiesToStreetsService;
 import com.example.demo.service.FIleLoggerService;
+import com.example.demo.service.MyLogger;
 import org.apache.catalina.connector.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.server.Session;
@@ -21,7 +22,9 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/person")
-public class UserController {
+public class UserController{
+    @Autowired
+    MyLogger l;
     @Autowired
     public CitiesToStreetsService.PersonService person_service;
     public volatile FIleLoggerService log;
@@ -38,7 +41,7 @@ public class UserController {
 
         Person p = new Person(first_name,second_name,email,age);
         try{
-
+            /*l.log("hello");*/
             person_service.save(p);
             log.log("add:\r\n"+p+ "::"+request.getRemoteAddr());
         }

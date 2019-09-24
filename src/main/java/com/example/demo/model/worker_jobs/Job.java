@@ -1,14 +1,14 @@
 package com.example.demo.model.worker_jobs;
 
+import com.example.demo.convertors.CryptoConverter;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import net.minidev.json.annotate.JsonIgnore;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.ColumnTransformer;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.List;
@@ -23,7 +23,8 @@ public class Job implements Serializable {
     @Column(insertable = false, updatable = false)
     private Long id;
 
-    @Column
+    @NaturalId
+    @Column(name = "description")
     private String description;
 
     //@OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.REMOVE})
@@ -33,11 +34,20 @@ public class Job implements Serializable {
     @CreationTimestamp
     private Time creattiontime;
 
-    @ColumnTransformer(
-            read = "decrypt( 'AES', '00', pswd  )",
-            write = "encrypt('AES', '00', ?)"
-    )
+/*    @ColumnTransformer(
+            read = "lower(pass)",
+            write = "crypt(?, gen_salt('md5'))"
+    )*/
+    @Convert(converter = CryptoConverter.class)
+    @Column(length = 64)
     private String pass;
+
+    @UpdateTimestamp
+    private Time updateTimestamp;
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public void setPass(String pass) {
         this.pass = pass;
@@ -63,8 +73,6 @@ public class Job implements Serializable {
         return updateTimestamp;
     }
 
-    @UpdateTimestamp
-    private Time updateTimestamp;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

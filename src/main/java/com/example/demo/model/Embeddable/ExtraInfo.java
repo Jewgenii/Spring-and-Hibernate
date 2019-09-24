@@ -10,5 +10,6 @@ public class ExtraInfo {
     public String details;
 
     @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
+    @JoinColumn(foreignKey =  @ForeignKey(name = "job_fk"),name = "job_id")
     private Job job;
 }

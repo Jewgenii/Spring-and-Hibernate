@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.service.FIleLoggerService;
 import com.example.demo.service.FileFolderService;
 import com.example.demo.service.MyConfig;
+import com.example.demo.service.MyLogger;
 import org.apache.catalina.core.ApplicationContext;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.aspectj.util.FileUtil;
@@ -30,7 +31,7 @@ import java.util.concurrent.Executors;
 public class FileSystemController {
     static volatile HashMap<String,String> locks = new HashMap<>();
     @Autowired
-    FIleLoggerService loger;
+    MyLogger loger;
 
     @Autowired
     public volatile FileFolderService flService;

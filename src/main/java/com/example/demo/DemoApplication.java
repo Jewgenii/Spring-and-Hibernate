@@ -1,5 +1,6 @@
 package com.example.demo;
 import com.example.demo.model.*;
+import com.example.demo.service.JobService;
 import com.example.demo.service.MyConfig;
 import org.apache.catalina.core.ApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,13 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
 import java.io.*;
+import java.lang.module.Configuration;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -28,6 +34,7 @@ import java.util.concurrent.TimeUnit;
 
 @SpringBootApplication
 public class DemoApplication {
+
     public static void main(String[] args) {
 
         SpringApplication.run(DemoApplication.class, args);
@@ -88,5 +95,8 @@ public class DemoApplication {
         Threadspeedtester t = new Threadspeedtester();
         Person p = new Person();
         t.foo(p);
+
     }
+
+
 }

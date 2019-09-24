@@ -6,6 +6,9 @@ import com.example.demo.repositories.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import javax.websocket.server.ServerEndpoint;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,5 +26,8 @@ public class JobService {
     }
     public List<Job> getByWorker(Worker w){
      return null;
+    }
+    public void insert(Job j){
+        jobRepository.save(j);
     }
 }
