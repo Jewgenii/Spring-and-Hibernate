@@ -9,6 +9,13 @@ spring:
     hibernate:
       ddl-auto:  create
     generate-ddl: true
+    properties:
+      hibernate:
+        order_inserts: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
+          batch_size: 20
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/postgres

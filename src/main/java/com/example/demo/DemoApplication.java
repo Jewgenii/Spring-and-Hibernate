@@ -1,40 +1,25 @@
 package com.example.demo;
 import com.example.demo.model.*;
-import com.example.demo.service.JobService;
-import com.example.demo.service.MyConfig;
-import org.apache.catalina.core.ApplicationContext;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.flyway.FlywayProperties;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.objenesis.instantiator.ObjectInstantiator;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.sql.DataSource;
-import java.io.*;
-import java.lang.module.Configuration;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 
 
 /*@SpringBootApplication(scanBasePackages = {"com.example.demo"})*/
-
+@EnableSpringConfigured
 @SpringBootApplication
-public class DemoApplication {
 
+public class DemoApplication {
+    @Autowired
+    static Test t;
     public static void main(String[] args) {
 
         SpringApplication.run(DemoApplication.class, args);
@@ -79,7 +64,7 @@ public class DemoApplication {
             System.out.println(key+":"+prop);
         }*/
 
-        ExecutorService es = Executors.newFixedThreadPool(3);
+      /*  ExecutorService es = Executors.newFixedThreadPool(3);
         Long startTime = System.currentTimeMillis();
         Future<String> fs = es.submit(new Threadspeedtester());
 
@@ -95,7 +80,25 @@ public class DemoApplication {
         Threadspeedtester t = new Threadspeedtester();
         Person p = new Person();
         t.foo(p);
+*/
 
+        Test t = ApplicationContextHolder.getContext().getBean(Test.class);
+
+        //Long time1 = t.slowInsert(1000);
+
+        Future<Long> time2 = t.quickInsert(10000);
+
+        Long time = 0L;
+
+        try {
+             time =  time2.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(t);
     }
 
 

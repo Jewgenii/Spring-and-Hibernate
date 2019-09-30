@@ -9,14 +9,17 @@ import com.example.demo.model.cities_streets.CitiesToStreets;
 import com.example.demo.model.cities_streets.City;
 import com.example.demo.model.cities_streets.Street;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CitiesToStreetsService {
+
     @Autowired
     private CitiesToStreetsRepository repository;
     @Autowired
@@ -27,13 +30,30 @@ public class CitiesToStreetsService {
     public void add(City c, Street s){
         CitiesToStreets cs = new CitiesToStreets(c,s);
         try{
+            cityRepository.save(c);
+            streetsRepository.save(s);
             repository.save(cs);
         }
         catch(Exception ex){
             System.out.println("ex = " + ex);
         }
     }
+
     @Transactional
+    @Async
+    public void saveAllCities(List<City> list){
+        cityRepository.saveAll(list);
+        cityRepository.flush();
+    }
+
+    public void addCity(City c){
+        cityRepository.save(c);
+    }
+    public void addStreet(Street s){
+        streetsRepository.save(s);
+    }
+
+
     public List<Street> getStreets(){
         List<Street> s = null;
         try{

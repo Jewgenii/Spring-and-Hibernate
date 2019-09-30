@@ -22,4 +22,18 @@ public class CitiesToStreetsController {
 
                 service.add(c,s);
     }
+
+    @PostMapping(value="addcity")
+    public void addcity(@RequestParam String cityname) {
+
+        int count = 500000;
+        for (int i = 0; i < count; i++) {
+            City city = new City();
+            city.setName(String.format(("city %d"), i));
+            Street street = new Street();
+            street.setName(String.format(("street %d"), i));
+            service.add(city, street);
+
+        }
+    }
 }
