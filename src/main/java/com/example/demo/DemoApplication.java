@@ -9,8 +9,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.logging.*;
 
 
 /*@SpringBootApplication(scanBasePackages = {"com.example.demo"})*/
@@ -82,23 +85,52 @@ public class DemoApplication {
         t.foo(p);
 */
 
-        Test t = ApplicationContextHolder.getContext().getBean(Test.class);
 
-        //Long time1 = t.slowInsert(1000);
 
-        Future<Long> time2 = t.quickInsert(10000);
-
-        Long time = 0L;
-
+      // Testing parallelism !!!!!
+/*
+        Logger logger = Logger.getLogger(DemoApplication.class.getName());
+        Handler fh = null;
         try {
-             time =  time2.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+             fh = new FileHandler("log%?.txt",1024*1024,20);
+             fh.setLevel(Level.WARNING);
+             fh.setFormatter(new SimpleFormatter());
+        } catch (IOException e) {
             e.printStackTrace();
         }
+        logger.addHandler(fh);
 
-        System.out.println(t);
+
+        Test t = ApplicationContextHolder.getContext().getBean(Test.class);
+
+
+        for (int records = 100_000;records<=2_000_000;records+=300_000)
+            for (int threads =2;threads<= Runtime.getRuntime().availableProcessors();threads++){
+                List<Future<Long>> timelist = t.quickInsertAsync(records,threads);
+
+                Long totalTime = 0L;
+                Long actualTime = 0L;
+
+                try {
+
+                    for (Future<Long> timer:timelist) {
+                        Long tmp = timer.get();
+                        actualTime=actualTime<tmp?tmp:actualTime;
+                        totalTime+=tmp;
+                        System.out.println(timer.get());
+                    }
+
+                    System.out.println("totalTime = " + totalTime);
+                    logger.log(Level.WARNING,String.format("records: %d, threads: %d, total time: %d, actual time: %d",records,threads,totalTime,actualTime));
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+                t.clearAllCities();
+            }*/
+
     }
 
 

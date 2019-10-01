@@ -1,0 +1,2 @@
+окт. 01, 2019 2:52:36 PM com.example.demo.DemoApplication main
+WARNING: records: 100000, threads: 2, total time: 11414, actual time: 5707

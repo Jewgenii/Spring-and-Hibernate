@@ -53,7 +53,6 @@ public class Threadspeedtester implements Callable<String> {
 
     public void foo(final Person p)
     {
-
         Thread th = new Thread(()->{
 
             p.setAge(33l);

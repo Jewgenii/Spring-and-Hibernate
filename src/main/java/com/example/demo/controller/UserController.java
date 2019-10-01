@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -153,5 +153,25 @@ public class UserController{
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public String exception(Exception ex){
         return ex.toString();
+    }
+
+    @PostMapping(value = "getfile")
+    public void getFile(@RequestParam(value = "file") String filename, HttpServletResponse response) throws Exception{
+        File fl = new File("log_insert_record_to_City_table.txt");
+
+
+        if(! fl.exists()) throw new IOException("file not exists");
+        OutputStream outputStream = new ByteArrayOutputStream();
+        FileInputStream inputStream = null;
+
+        try {
+             inputStream = new FileInputStream(fl);
+            response.getOutputStream().write(inputStream.readAllBytes());
+            inputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            if(!inputStream.equals(null))
+                inputStream.close();
+        }
     }
 }

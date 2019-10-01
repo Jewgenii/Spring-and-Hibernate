@@ -74,6 +74,10 @@ public class CitiesToStreetsService {
         return l;
     }
 
+    public void removeAllCities() {
+        cityRepository.deleteAll();
+    }
+
     @Service
     public static class PersonService {
         @Autowired

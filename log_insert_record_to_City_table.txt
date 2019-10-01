@@ -1,0 +1,87 @@
+окт. 01, 2019 1:23:53 PM com.example.demo.DemoApplication main
+WARNING: records: 100000, threads: 1, total time: 11351, actual time: 11351
+окт. 01, 2019 1:24:10 PM com.example.demo.DemoApplication main
+WARNING: records: 100000, threads: 2, total time: 11135, actual time: 5572
+окт. 01, 2019 1:24:25 PM com.example.demo.DemoApplication main
+WARNING: records: 100000, threads: 3, total time: 11386, actual time: 3798
+окт. 01, 2019 1:24:40 PM com.example.demo.DemoApplication main
+WARNING: records: 100000, threads: 4, total time: 12271, actual time: 3071
+окт. 01, 2019 1:24:54 PM com.example.demo.DemoApplication main
+WARNING: records: 100000, threads: 5, total time: 13634, actual time: 2730
+окт. 01, 2019 1:25:08 PM com.example.demo.DemoApplication main
+WARNING: records: 100000, threads: 6, total time: 14162, actual time: 2403
+окт. 01, 2019 1:25:21 PM com.example.demo.DemoApplication main
+WARNING: records: 100000, threads: 7, total time: 15760, actual time: 2351
+окт. 01, 2019 1:25:35 PM com.example.demo.DemoApplication main
+WARNING: records: 100000, threads: 8, total time: 17277, actual time: 2328
+окт. 01, 2019 1:25:48 PM com.example.demo.DemoApplication main
+WARNING: records: 100000, threads: 9, total time: 19009, actual time: 2253
+окт. 01, 2019 1:26:02 PM com.example.demo.DemoApplication main
+WARNING: records: 100000, threads: 10, total time: 20882, actual time: 2308
+окт. 01, 2019 1:27:11 PM com.example.demo.DemoApplication main
+
+
+WARNING: records: 400000, threads: 1, total time: 57516, actual time: 57516
+окт. 01, 2019 1:28:19 PM com.example.demo.DemoApplication main
+WARNING: records: 400000, threads: 2, total time: 43723, actual time: 21887
+окт. 01, 2019 1:29:19 PM com.example.demo.DemoApplication main
+WARNING: records: 400000, threads: 3, total time: 44202, actual time: 14759
+окт. 01, 2019 1:30:18 PM com.example.demo.DemoApplication main
+WARNING: records: 400000, threads: 4, total time: 51736, actual time: 12939
+окт. 01, 2019 1:31:17 PM com.example.demo.DemoApplication main
+WARNING: records: 400000, threads: 5, total time: 59000, actual time: 11880
+окт. 01, 2019 1:32:12 PM com.example.demo.DemoApplication main
+WARNING: records: 400000, threads: 6, total time: 56294, actual time: 9454
+окт. 01, 2019 1:33:07 PM com.example.demo.DemoApplication main
+WARNING: records: 400000, threads: 7, total time: 63680, actual time: 9198
+окт. 01, 2019 1:34:05 PM com.example.demo.DemoApplication main
+WARNING: records: 400000, threads: 8, total time: 80610, actual time: 10487
+окт. 01, 2019 1:35:01 PM com.example.demo.DemoApplication main
+WARNING: records: 400000, threads: 9, total time: 81763, actual time: 9503
+окт. 01, 2019 1:35:58 PM com.example.demo.DemoApplication main
+WARNING: records: 400000, threads: 10, total time: 93089, actual time: 9652
+окт. 01, 2019 1:38:32 PM com.example.demo.DemoApplication main
+
+
+WARNING: records: 700000, threads: 1, total time: 107360, actual time: 107360
+окт. 01, 2019 1:40:34 PM com.example.demo.DemoApplication main
+WARNING: records: 700000, threads: 2, total time: 79404, actual time: 39706
+окт. 01, 2019 1:42:24 PM com.example.demo.DemoApplication main
+WARNING: records: 700000, threads: 3, total time: 82587, actual time: 27563
+окт. 01, 2019 1:44:10 PM com.example.demo.DemoApplication main
+WARNING: records: 700000, threads: 4, total time: 93920, actual time: 23529
+окт. 01, 2019 1:45:58 PM com.example.demo.DemoApplication main
+WARNING: records: 700000, threads: 5, total time: 107191, actual time: 21625
+окт. 01, 2019 1:47:40 PM com.example.demo.DemoApplication main
+WARNING: records: 700000, threads: 6, total time: 104340, actual time: 17583
+окт. 01, 2019 1:49:19 PM com.example.demo.DemoApplication main
+WARNING: records: 700000, threads: 7, total time: 120692, actual time: 17823
+окт. 01, 2019 1:50:57 PM com.example.demo.DemoApplication main
+WARNING: records: 700000, threads: 8, total time: 126160, actual time: 16233
+окт. 01, 2019 1:52:38 PM com.example.demo.DemoApplication main
+WARNING: records: 700000, threads: 9, total time: 151718, actual time: 17222
+окт. 01, 2019 1:54:16 PM com.example.demo.DemoApplication main
+WARNING: records: 700000, threads: 10, total time: 165182, actual time: 17191
+окт. 01, 2019 1:58:29 PM com.example.demo.DemoApplication main
+
+
+WARNING: records: 1000000, threads: 1, total time: 170520, actual time: 170520
+окт. 01, 2019 2:01:22 PM com.example.demo.DemoApplication main
+WARNING: records: 1000000, threads: 2, total time: 113125, actual time: 56608
+окт. 01, 2019 2:03:56 PM com.example.demo.DemoApplication main
+WARNING: records: 1000000, threads: 3, total time: 117091, actual time: 39157
+окт. 01, 2019 2:06:29 PM com.example.demo.DemoApplication main
+WARNING: records: 1000000, threads: 4, total time: 138805, actual time: 34780
+окт. 01, 2019 2:08:58 PM com.example.demo.DemoApplication main
+WARNING: records: 1000000, threads: 5, total time: 156927, actual time: 31683
+окт. 01, 2019 2:11:23 PM com.example.demo.DemoApplication main
+WARNING: records: 1000000, threads: 6, total time: 151766, actual time: 25865
+окт. 01, 2019 2:13:46 PM com.example.demo.DemoApplication main
+WARNING: records: 1000000, threads: 7, total time: 177769, actual time: 26042
+окт. 01, 2019 2:16:10 PM com.example.demo.DemoApplication main
+WARNING: records: 1000000, threads: 8, total time: 201482, actual time: 25924
+окт. 01, 2019 2:18:35 PM com.example.demo.DemoApplication main
+WARNING: records: 1000000, threads: 9, total time: 239217, actual time: 27083
+окт. 01, 2019 2:20:58 PM com.example.demo.DemoApplication main
+WARNING: records: 1000000, threads: 10, total time: 251674, actual time: 25720
+
