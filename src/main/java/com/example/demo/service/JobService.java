@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.model.worker_jobs.Job;
 import com.example.demo.model.worker_jobs.Worker;
+import com.example.demo.repositories.JobClassRepository;
 import com.example.demo.repositories.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -18,6 +19,8 @@ import java.util.List;
 public class JobService {
     @Autowired
     JobRepository jobRepository;
+    @Autowired
+    JobClassRepository jobClassRepository;
 
     public List<Job> getAllJobs(){
         Job j = jobRepository.getOne(1l);
@@ -31,4 +34,6 @@ public class JobService {
     public void insert(Job j){
         jobRepository.save(j);
     }
+
+
 }
