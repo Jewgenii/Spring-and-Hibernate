@@ -4,6 +4,7 @@ import com.example.demo.model.worker_jobs.Job;
 import com.example.demo.model.worker_jobs.Worker;
 import com.example.demo.repositories.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;

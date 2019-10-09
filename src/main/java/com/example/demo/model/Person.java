@@ -24,6 +24,8 @@ public class Person  implements Serializable {
     Long id;
 
     @Column
+    String username;
+    @Column
     String first_name;
 
     @Column

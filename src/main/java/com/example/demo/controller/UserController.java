@@ -174,4 +174,9 @@ public class UserController{
                 inputStream.close();
         }
     }
+    @GetMapping(value = "echo")
+    @ResponseBody
+    public String s(){
+        return "hello";
+    }
 }

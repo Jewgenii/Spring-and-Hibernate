@@ -1,5 +1,6 @@
 package com.example.demo;
 import com.example.demo.model.*;
+import com.example.demo.service.MyConfig;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -7,6 +8,7 @@ import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 
 import java.io.IOException;
@@ -48,11 +50,15 @@ public class DemoApplication {
             e.printStackTrace();
         }*/
 
+        AnnotationConfigApplicationContext con = new AnnotationConfigApplicationContext(MyConfig.class);
+        con.register(LogFormater.class);
+        LogFormater l = con.getBean(LogFormater.class);
+        System.out.println(l.getItemToLog());
 /*
         AnnotationConfigApplicationContext con = new AnnotationConfigApplicationContext(MyConfig.class);
         con.register(LogFormater.class);
         LogFormater l = con.getBean(LogFormater.class);
-        System.out.println(l.getItemToLog());*/
+        System.out.println(l.ge tItemToLog());*/
 
      /*   Threadspeedtester t = new Threadspeedtester();
         t.testArrayList();
