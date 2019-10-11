@@ -59,7 +59,6 @@ public class JobClassRepository {
         return jobRepository.findAll(jobSpecification);
     }
 
-
 }
 
 
